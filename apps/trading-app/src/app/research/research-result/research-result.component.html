@@ -1,0 +1,24 @@
+
+
+<div>
+  <h2>Instruments</h2>
+  <div class="instruments-grid">
+    <div class="instruments-grid-item"><h4>Symbol</h4></div>
+    <div class="instruments-grid-item"><h4>Last</h4></div>
+    <div class="instruments-grid-item"><h4>Bid</h4></div>
+    <div class="instruments-grid-item"><h4>Ask</h4></div>
+    <div class="instruments-grid-item"><h4>Change</h4></div>
+    <div class="instruments-grid-item"><h4>Type</h4></div>
+  </div>
+
+  <div class="instruments-grid" *ngFor="let transaction of researchResultObservable | async">
+
+    <div class="instruments-grid-item">{{ transaction.symbol }}</div>
+    <div class="instruments-grid-item">{{ transaction.lastPrice }}</div>
+    <div class="instruments-grid-item">{{ transaction.bidPrice }}</div>
+    <div class="instruments-grid-item">{{ transaction.askPrice }}</div>
+    <div class="instruments-grid-item">{{ transaction.change }}</div>
+    <div class="instruments-grid-item">{{ transaction.type }}</div>
+  </div>
+</div>
+

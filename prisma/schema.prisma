@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 Int                  @id @default(autoincrement())
+  userName           String               @unique(map: "user_uk") @db.VarChar(100)
+  firstName          String               @db.VarChar(50)
+  lastName           String               @db.VarChar(50)
+  email              String               @db.VarChar(100)
+  AccountPerformance AccountPerformance[]
+
+  Transaction Transaction[]
+}
+
+model AccountPerformance {
+  id                     Int      @id @default(autoincrement())
+  accountPerformanceDate DateTime @db.Date
+  amount                 Decimal  @db.Decimal(16, 4)
+  userId                 Int
+  User                   User     @relation(fields: [userId], references: [id])
+
+  @@unique([accountPerformanceDate, userId], map: "accountperformance_uk")
+}
+
+model Transaction {
+  id                     Int      @id @default(autoincrement())
+  symbol    String               @db.VarChar(50)
+  quantity  Decimal  @db.Decimal(10, 5)
+  price     Decimal  @db.Decimal(10, 4)
+  userId    Int
+  User                   User     @relation(fields: [userId], references: [id])
+  currency  String               @db.VarChar(3)
+  tradeDate DateTime          @db.Date
+  type      String            @db.VarChar(3)
+}
+
+model Instrument {
+  id                     Int      @id @default(autoincrement())
+  symbol    String               @db.VarChar(50)
+  last  Decimal  @db.Decimal(16, 4)
+  bid     Decimal  @db.Decimal(16, 4)
+  ask     Decimal  @db.Decimal(16, 4)
+  type  String               @db.VarChar(10)
+  description      String            @db.VarChar(100)
+}

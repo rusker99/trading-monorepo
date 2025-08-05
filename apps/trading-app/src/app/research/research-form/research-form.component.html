@@ -1,0 +1,22 @@
+<div class="research-form-grid" [formGroup]="formGroup">
+  <div class="research-form-grid-item">Losers</div>
+  <div class="research-form-grid-item">
+    <input formControlName="losers" type="checkbox">
+  </div>
+  <div></div>
+
+  <div class="research-form-grid-item">Lowest Price</div>
+  <div class="research-form-grid-item">
+    <input formControlName="lowestPrice">
+  </div>
+  <div></div>
+
+  <div class="research-form-grid-item">highestPrice</div>
+  <div class="research-form-grid-item">
+    <input formControlName="highestPrice">
+  </div>
+  <div>
+    <button type="button" (click)="search()">Search</button>&nbsp;
+    <button type="button" (click)="reset()">Reset</button>
+  </div>
+</div>

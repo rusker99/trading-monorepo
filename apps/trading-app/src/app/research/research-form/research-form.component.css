@@ -1,0 +1,11 @@
+.research-form-grid
+{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+}
+
+.research-form-grid-item
+{
+  padding: 5px;
+}

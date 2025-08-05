@@ -7,14 +7,14 @@
       "node"
     ],
     "emitDecoratorMetadata": true,
-    "target": "es2021"
+    "target": "es2022"
   },
+  "include": [
+    "src/**/*.ts"
+  ],
   "exclude": [
     "jest.config.ts",
     "src/**/*.spec.ts",
     "src/**/*.test.ts"
-  ],
-  "include": [
-    "src/**/*.ts"
   ]
 }

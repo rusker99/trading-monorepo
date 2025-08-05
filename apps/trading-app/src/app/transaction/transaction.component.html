@@ -1,0 +1,24 @@
+
+
+<div>
+  <h2>Transactions</h2>
+  <div class="transactions-grid">
+    <div class="transactions-grid-item"><h4>Symbol</h4></div>
+    <div class="transactions-grid-item"><h4>Quantity</h4></div>
+    <div class="transactions-grid-item"><h4>Price</h4></div>
+    <div class="transactions-grid-item"><h4>Currency</h4></div>
+    <div class="transactions-grid-item"><h4>Trade Date</h4></div>
+    <div class="transactions-grid-item"><h4>Type</h4></div>
+  </div>
+
+  <div class="transactions-grid" *ngFor="let transaction of transactions">
+
+      <div class="transactions-grid-item">{{ transaction.symbol }}</div>
+      <div class="transactions-grid-item">{{ transaction.quantity }}</div>
+      <div class="transactions-grid-item">{{ transaction.price }}</div>
+      <div class="transactions-grid-item">{{ transaction.currency }}</div>
+      <div class="transactions-grid-item">{{ transaction.tradeDate }}</div>
+      <div class="transactions-grid-item">{{ transaction.type }}</div>
+  </div>
+</div>
+

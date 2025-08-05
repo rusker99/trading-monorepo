@@ -1,0 +1,6 @@
+<trading-app-research-form #researchFormComponent
+  (searchTriggeredEventEmitter)="researchResultComponent.onSearch($event)"
+  (resetTriggeredEventEmitter)="researchResultComponent.onReset()"
+></trading-app-research-form>
+<hr>
+<trading-app-research-result #researchResultComponent></trading-app-research-result>
