@@ -5,15 +5,10 @@ create table trading."Transaction"
   quantity  numeric(10, 5)                                               not null,
   price     numeric(16, 4)                                               not null,
   "userId"    integer                                                       not null,
-  currency  varchar(3)
-    constraint currency_check
-      check ((currency)::text = ANY
-             ((ARRAY ['USD'::character varying, 'CAD'::character varying, 'EUR'::character varying])::text[])),
-  "tradeDate" date                                                         not null,
-  type      varchar(3)                                                   not null
-    constraint type_check
-      check ((type)::text = ANY
-             ((ARRAY ['BUY'::character varying, 'SELL'::character varying, 'DIV'::character varying])::text[]))
+  currency  varchar(3)                                                    not null,
+  "tradeDate" timestamp                                                         not null,
+  type      varchar(3)                                                   not null,
+    CONSTRAINT "Transaction_pkey" PRIMARY KEY ("id")
 
 );
 

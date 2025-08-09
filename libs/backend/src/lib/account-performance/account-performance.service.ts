@@ -11,7 +11,7 @@ export class AccountPerformanceService extends ModelService implements IModelSer
       {select
           :
           {
-            accountPerformanceDate: true
+            date: true
           },
         where: { userId: userId}
       }

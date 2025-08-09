@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ResearchFilter } from '@trading-monorepo/core';
@@ -26,7 +26,6 @@ export class ResearchFormComponent {
       lowestPrice: [''],
       highestPrice: [''],
       type: [''],
-      symbol: ['']
     })
   }
 
@@ -37,7 +36,6 @@ export class ResearchFormComponent {
       lowestPrice: this.formGroup.get('lowestPrice').value,
       highestPrice: this.formGroup.get('highestPrice').value,
       type: this.formGroup.get('type').value,
-      symbol: this.formGroup.get('symbol').value,
     } as ResearchFilter;
 
     this.searchTriggeredEventEmitter.emit(researchFilter);

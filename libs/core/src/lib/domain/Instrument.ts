@@ -1,4 +1,5 @@
 import { IBaseModel } from '../base/base.model';
+import { IPrice } from './IPrice';
 
 export interface IInstrument  extends IBaseModel
 {
@@ -8,4 +9,5 @@ export interface IInstrument  extends IBaseModel
   ask: number
   type: string,
   description: string,
+  prices?: IPrice[],
 }

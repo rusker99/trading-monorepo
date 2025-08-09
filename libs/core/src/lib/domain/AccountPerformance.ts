@@ -3,6 +3,6 @@ import { IBaseModel } from '../base/base.model';
 
 export interface IAccountPerformance extends IBaseModel
 {
-  accountPerformanceDate: Date,
+  date: Date,
   amount: number
 }

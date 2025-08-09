@@ -1,2 +1,4 @@
-INSERT INTO trading."Instrument" (symbol, last, bid, ask, type, description)
-values ('RSI', 12.4600, 12.40, 12.50, 'STOCK', 'ROGERS SUGAR INC')
+INSERT INTO trading."Instrument" (symbol, type, description)
+values ('RSI', 'STOCK', 'ROGERS SUGAR INC'),
+       ('AMHL', 'STOCK', 'AMERICAN LEISURE HOLDINGS'),
+       ('ETAO', 'STOCK', 'ITAO INTERNATIONAL CO LTD');

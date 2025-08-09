@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModelRestService } from '../../service/model-rest.service';
 import { IAccountPerformance } from '@trading-monorepo/core';
 import { EChartsOption } from 'echarts';
@@ -38,7 +38,7 @@ export class AccountPerformanceComponent implements OnInit {
           this.chartOption = {
             xAxis: {
               type: 'category',
-              data: this.accountPerformances?.map(accountPerformance => String(accountPerformance.accountPerformanceDate)),
+              data: this.accountPerformances?.map(accountPerformance => String(accountPerformance.date)),
             },
             yAxis: {
               position: 'right',

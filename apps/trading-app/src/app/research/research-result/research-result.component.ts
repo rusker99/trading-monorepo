@@ -1,7 +1,7 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ResearchFilter, ResearchResult } from '@trading-monorepo/core';
-import { BehaviorSubject, distinctUntilChanged, EMPTY, filter, Observable, Subject, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, Observable, of, Subject, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'trading-app-research-result',
@@ -22,15 +22,10 @@ export class ResearchResultComponent implements OnInit {
   ngOnInit() {
     this.researchResultObservable = this.researchFilterObservable.pipe(
       distinctUntilChanged(),
-      switchMap(researchFilter => {
-        if (!researchFilter) {
-          return EMPTY;
-        }
-        else {
-          return this.httpClient.post<ResearchResult[]>('/api/research', researchFilter)
-        }
-      }
-      )
+      switchMap(researchFilter =>
+        !researchFilter ? of([]) : this.httpClient.post<ResearchResult[]>('/api/research', researchFilter)
+      ),
+      tap(results => console.log(`results=${results}`))
     );
     this.researchFilterObservable.subscribe();
   }

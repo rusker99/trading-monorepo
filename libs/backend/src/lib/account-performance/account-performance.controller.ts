@@ -18,6 +18,6 @@ export class AccountPerformanceController extends BaseController
 
   @Get('/')
   getAll() {
-    return this.accountPerformanceService.findMany('AccountPerformance', { select: {accountPerformanceDate: true, amount: true}} );
+    return this.accountPerformanceService.findMany('AccountPerformance', { select: {date: true, amount: true}} );
   }
 }

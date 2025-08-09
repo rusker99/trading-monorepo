@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import {
-  IAccountPerformance,
   IInstrument,
-  IModelService,
   ModelService,
   ResearchFilter,
   ResearchResult
@@ -23,7 +21,6 @@ export class ResearchService
 
     const where = {
       last: lastFilter,
-      symbol: researchFilter.symbol || undefined,
       type: researchFilter.type || undefined,
     }
     return this.modelService.findMany<IInstrument>('Instrument', {

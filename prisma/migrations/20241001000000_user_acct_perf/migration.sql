@@ -14,14 +14,14 @@ ALTER TABLE trading."User" ADD CONSTRAINT User_uk UNIQUE ("userName");
 -- CreateTable
 CREATE TABLE trading."AccountPerformance" (
     "id" SERIAL NOT NULL,
-    "accountPerformanceDate" DATE NOT NULL,
+    "date" DATE NOT NULL,
     "amount" DECIMAL(9,2) NOT NULL,
     "userId" INTEGER NOT NULL,
 
     CONSTRAINT "AccountPerformance_pkey" PRIMARY KEY ("id")
 );
 
-ALTER TABLE trading."AccountPerformance" ADD CONSTRAINT AccountPerformance_uk UNIQUE ("accountPerformanceDate", "userId");
+ALTER TABLE trading."AccountPerformance" ADD CONSTRAINT AccountPerformance_uk UNIQUE ("date", "userId");
 
 -- AddForeignKey
 ALTER TABLE trading."AccountPerformance" ADD CONSTRAINT "AccountPerformance_userId_fkey" FOREIGN KEY ("userId") REFERENCES trading."User"("id")

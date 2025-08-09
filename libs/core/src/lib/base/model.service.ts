@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common';
 import { PrismaService } from '../sql/prisma.service';
-import { IBaseModel, ModelName } from './base.model';
+import { IBaseModel } from './base.model';
 
 
 export interface QueryOptions {
@@ -42,7 +42,7 @@ export interface IModelService
 
     const table = this.prismaService.getPrismaTable(model.modelName);
     const payload = {
-      where: { id: model.id},
+      where: { id: Number(model.id)},
     };
 
     return table.findUnique(
