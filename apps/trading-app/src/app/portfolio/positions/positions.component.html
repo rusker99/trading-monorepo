@@ -1,0 +1,22 @@
+
+
+<div>
+  <h2>Positions</h2>
+  <div class="positions-grid">
+    <div class="positions-grid-item"><h4>Symbol</h4></div>
+    <div class="positions-grid-item"><h4>Change</h4></div>
+    <div class="positions-grid-item"><h4>Price</h4></div>
+    <div class="positions-grid-item"><h4>Cost</h4></div>
+    <div class="positions-grid-item"><h4>Quantity</h4></div>
+  </div>
+
+  <div class="positions-grid" *ngFor="let position of positionResults">
+
+    <div class="positions-grid-item">{{ position.symbol }}</div>
+    <div class="positions-grid-item">{{ position.change }}</div>
+    <div class="positions-grid-item">{{ position.averagePrice }}</div>
+    <div class="positions-grid-item">{{ position.totalCost }}</div>
+    <div class="positions-grid-item">{{ position.totalQuantity }}</div>
+  </div>
+</div>
+
