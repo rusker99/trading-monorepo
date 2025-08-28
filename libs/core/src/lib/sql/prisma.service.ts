@@ -1,30 +1,27 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
-import { ModelName } from '../base/base.model';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
-export class PrismaService extends PrismaClient
+export class PrismaService extends PrismaClient implements OnModuleInit
 {
   constructor() {
     super({
       log: ['query', 'info', 'warn', 'error'],
     });
+
+    this.$on('query' as never, (e: Prisma.QueryEvent) => {
+      console.log(`Query: ${e.query}`);
+      console.log(`Params: ${e.params}`);
+      console.log(`Duration: ${e.duration}ms`);
+    })
   }
-  private tables: Map<ModelName, string> = new Map([
-    ['AccountPerformance', 'accountPerformance'],
-    ['transaction', 'transaction']]);
+
+  async onModuleInit() {
+    await this.$connect();
+  }
 
   getPrismaTableName(modelName: string): keyof PrismaService {
-    // const tableName = this.tables.get(modelName);
-    // if (!tableName)
-    // {
-    //   throw new Error(`No table name for ${modelName}`);
-    // }
-    // if (!Object.hasOwn(this, tableName))
-    // {
-    //   throw new Error(`No table name for ${modelName}`);
-    // }
-
     const tableName = modelName;
     console.log(`tableName: ${String(tableName)}`);
 

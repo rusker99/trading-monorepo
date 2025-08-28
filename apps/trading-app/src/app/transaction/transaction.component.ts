@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ModelRestService } from '../service/model-rest.service';
-import { ITransaction } from '@trading-monorepo/core';
+import { TransactionModel, TransactionResult } from '@trading-monorepo/core';
+import { RestService } from '../service/rest.service';
 
 @Component({
   selector: 'trading-app-transaction',
@@ -9,13 +9,21 @@ import { ITransaction } from '@trading-monorepo/core';
 })
 export class TransactionComponent implements OnInit {
 
-  transactions: ITransaction[] = [];
+  transactions: Partial<TransactionModel>[] = [];
 
-  constructor(private restService: ModelRestService) {}
+  constructor(private restService: RestService) {}
   ngOnInit(): void {
     this.restService
-      .getAll<ITransaction>("Transaction")
+      .doGetAll<TransactionResult>(`/api/transaction?queryOptions=${encodeURIComponent(
+        JSON.stringify({include: {instrument: {select: {symbol: true}}}}))}`)
       .subscribe(
-        (transactions: ITransaction[]) => this.transactions = transactions )
+        (transactions: TransactionResult[]) =>
+          this.transactions = transactions.map(transaction =>
+          ({
+            ...transaction,
+            symbol: transaction.instrument.symbol,
+            type: transaction.instrument.symbol
+          })) )
   }
 }
+

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { ModelRestService } from '../service/model-rest.service';
-import { IInstrument } from '@trading-monorepo/core';
+import { InstrumentModel } from '@trading-monorepo/core';
 import { map, Observable } from 'rxjs';
 
 @Component({
@@ -18,7 +18,7 @@ export class TradeComponent implements OnInit {
   constructor(private restService: ModelRestService) {}
   ngOnInit(): void {
     this.chartOption = this.restService
-      .get<IInstrument>("Instrument", 1,
+      .get<InstrumentModel>("Instrument", 1,
         {
           include: {
           // symbol: true,

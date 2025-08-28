@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModelRestService } from '../../service/model-rest.service';
-import { IAccountPerformance } from '@trading-monorepo/core';
+import { AccountPerformanceModel } from '@trading-monorepo/core';
 import { EChartsOption } from 'echarts';
 
 @Component({
@@ -9,7 +9,7 @@ import { EChartsOption } from 'echarts';
   styleUrl: './account-performance.component.css',
 })
 export class AccountPerformanceComponent implements OnInit {
-  accountPerformances: IAccountPerformance[] = [];
+  accountPerformances: AccountPerformanceModel[] = [];
   chartOption: EChartsOption = {
     xAxis: {
       type: 'category',
@@ -30,9 +30,9 @@ export class AccountPerformanceComponent implements OnInit {
   constructor(private restService: ModelRestService) {}
   ngOnInit(): void {
     this.restService
-      .getAll<IAccountPerformance>("AccountPerformance")
+      .getAll<AccountPerformanceModel>("AccountPerformance")
       .subscribe(
-        (accountPerformances: IAccountPerformance[]) => {
+        (accountPerformances: AccountPerformanceModel[]) => {
           this.accountPerformances = accountPerformances;
 
           this.chartOption = {

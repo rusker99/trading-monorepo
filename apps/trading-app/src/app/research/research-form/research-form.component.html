@@ -7,7 +7,11 @@
 
   <div class="research-form-grid-item">Type</div>
   <div class="research-form-grid-item">
-    <input formControlName="type">
+    <select formControlName="type">
+      <option ngValue="">Select value</option>
+      <option ngValue="STOCK">STOCK</option>
+      <option ngValue="OPTION">OPTION</option>
+    </select>
   </div>
   <div></div>
 

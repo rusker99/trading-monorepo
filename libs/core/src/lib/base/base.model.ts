@@ -1,5 +1,5 @@
 
-export interface IBaseModel
+export interface BaseModel
 {
   id: number
   readonly modelName: ModelName;

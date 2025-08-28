@@ -1,5 +1,5 @@
 
-export interface ResearchFilter
+export interface ResearchFilterRequest
 {
     losers?: boolean,
     lowestPrice?: number,

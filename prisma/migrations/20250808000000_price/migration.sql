@@ -5,6 +5,7 @@ create table trading."Price"
   last         numeric(16, 4) not null,
   ask          numeric(16, 4) not null,
   date         timestamp        not null,
+  change       numeric(10, 5) not null,
   "instrumentId" integer        not null,
 
   CONSTRAINT "Price_pkey" PRIMARY KEY ("id")

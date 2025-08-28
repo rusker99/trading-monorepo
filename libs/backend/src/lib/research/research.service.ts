@@ -1,44 +1,51 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import {
-  IInstrument,
-  ModelService,
-  ResearchFilter,
-  ResearchResult
+  PrismaService,
+  ResearchFilterRequest,
+  ResearchResult,
 } from '@trading-monorepo/core';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
-export class ResearchService
-{
-  constructor(private modelService: ModelService) {
-  }
+export class ResearchService {
+  @Inject(PrismaService)
+  readonly prismaService!: PrismaService;
 
-  findMany(researchFilter: ResearchFilter): Promise<ResearchResult[]> {
+  findMany(researchFilter?: ResearchFilterRequest): Promise<ResearchResult[]> {
+    const query = `SELECT last, bid, ask, change, "instrumentId", symbol, type
+       FROM (
+              SELECT *, MAX(date) OVER (PARTITION BY "instrumentId") as max_date
+              FROM trading."Price"
+            ) P
+              inner join trading."Instrument" I on P."instrumentId" = I.id
+       WHERE P.date = P."max_date"`;
 
-    const lastFilter = !!researchFilter.highestPrice && !!researchFilter.lowestPrice ? {
-      lte: researchFilter.highestPrice ? researchFilter.highestPrice : undefined,
-      gte: researchFilter.lowestPrice ? researchFilter.lowestPrice : undefined,
-    } : undefined;
-
-    const where = {
-      last: lastFilter,
-      type: researchFilter.type || undefined,
+    let filter = ``;
+    let varCount = 0;
+    const values = [];
+    if (researchFilter?.highestPrice) {
+      filter = ` ${filter} and last <= $${++varCount}`;
+      values.push(Number(researchFilter?.highestPrice));
     }
-    return this.modelService.findMany<IInstrument>('Instrument', {
-        where,
-        orderBy:
-          {
-            last: researchFilter.losers ? 'desc' : 'asc'
-          }
-      }
-    ).then(instruments => instruments.map(instrument => (
-      {
-        type: instrument.type,
-        change: 111,
-        askPrice: instrument.ask,
-        bidPrice: instrument.bid,
-        lastPrice: instrument.last,
-        symbol: instrument.symbol,
-      } as ResearchResult)));
-  }
+    if (researchFilter?.lowestPrice) {
+      filter = ` ${filter} and last >= $${++varCount}`;
+      values.push(Number(researchFilter?.lowestPrice));
+    }
+    if (researchFilter?.type) {
+      filter = ` ${filter} and type = $${++varCount}`;
+      values.push(researchFilter?.type);
+    }
 
+    filter = ` ${filter} order by change ${
+      researchFilter?.losers ? ' asc ' : ' desc'
+    }`;
+
+    const fullQuery: Prisma.Sql = Prisma.raw(`${query}${filter}`);
+    fullQuery.values.length = 0;
+    fullQuery.values.push(...values);
+
+    console.log(fullQuery.values);
+
+    return this.prismaService.$queryRaw<ResearchResult[]>(fullQuery);
+  }
 }

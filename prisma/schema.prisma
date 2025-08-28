@@ -23,6 +23,8 @@ model Instrument {
   type        String  @db.VarChar(10)
   description String? @db.VarChar(100)
   prices       Price[]
+
+  Transaction Transaction[] @relation(map: "Transaction_Instrument_id_fkey")
 }
 
 model Price {
@@ -30,6 +32,7 @@ model Price {
   bid          Decimal    @db.Decimal(16, 4)
   last         Decimal    @db.Decimal(16, 4)
   ask          Decimal    @db.Decimal(16, 4)
+  change        Decimal @db.Decimal(10, 5)
   date         DateTime?  @db.Date
   instrumentId Int
   instrument   Instrument @relation(fields: [instrumentId], references: [id], map: "Price_Instrument_id_fkey")
@@ -37,7 +40,6 @@ model Price {
 
 model Transaction {
   id        Int      @id @default(autoincrement())
-  symbol    String   @db.VarChar(10)
   quantity  Decimal  @db.Decimal(10, 5)
   price     Decimal  @db.Decimal(16, 4)
   userId    Int
@@ -45,6 +47,8 @@ model Transaction {
   tradeDate DateTime @db.Date
   type      String   @db.VarChar(3)
   user      User     @relation(fields: [userId], references: [id], map: "Trading_userId_fkey")
+  instrumentId Int
+  instrument   Instrument @relation(fields: [instrumentId], references: [id], map: "Transaction_Instrument_id_fkey")
 }
 
 model User {

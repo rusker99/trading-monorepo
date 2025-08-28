@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { IAccountPerformance, IModelService, ModelService } from '@trading-monorepo/core';
+import { AccountPerformanceModel, ModelService, ModelDbService } from '@trading-monorepo/core';
 
 @Injectable()
-export class AccountPerformanceService extends ModelService implements IModelService
+export class AccountPerformanceService extends ModelDbService implements ModelService
 {
-  findByUserId(userId: number): Promise<IAccountPerformance[]> {
+  findByUserId(userId: number): Promise<AccountPerformanceModel[]> {
     const table = this.prismaService.getPrismaTable('AccountPerformance');
 
     return table.findMany(

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { ITransaction, ResearchFilter, ResearchResult } from '@trading-monorepo/core';
+import { TransactionModel, ResearchFilterRequest, PositionResult } from '@trading-monorepo/core';
 import { ModelRestService } from '../service/model-rest.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -13,12 +13,12 @@ import { HttpClient } from '@angular/common/http';
 export class ResearchComponent {
 
   // researchFormObservable: Observable<any>;
-  // researchResultObservable: Observable<ResearchResult[]>;
+  // researchResultObservable: Observable<PositionResult[]>;
 
   // constructor(protected readonly httpClient: HttpClient) {
-  //   this.researchResultObservable = httpClient.get<ResearchResult[]>('/api/research');
+  //   this.researchResultObservable = httpClient.get<PositionResult[]>('/api/research');
   // }
-  // onSearch(researchFilter:  ResearchFilter) {
+  // onSearch(researchFilter:  ResearchFilterRequest) {
   //
   // }
 }

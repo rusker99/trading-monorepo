@@ -1,10 +1,10 @@
-import { IModelService, QueryOptions } from './model.service';
-import { IBaseModel, ModelName } from './base.model';
+import { BaseModel, ModelName } from './base.model';
+import { ModelService, QueryOptions } from './model.service';
 
 export abstract class BaseController {
-  protected constructor(protected modelService: IModelService) {}
+  protected constructor(protected modelService: ModelService) {}
 
-  getOneModel(modelName: ModelName, id: number, queryOptions?: QueryOptions): Promise<IBaseModel> {
+  getOneModel(modelName: ModelName, id: number, queryOptions?: QueryOptions): Promise<BaseModel> {
     return this.modelService.find({ modelName, id }, queryOptions);
   }
 }

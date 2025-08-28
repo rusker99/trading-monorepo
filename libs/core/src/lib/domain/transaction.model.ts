@@ -1,6 +1,6 @@
-import { IBaseModel } from '../base/base.model';
+import { BaseModel } from '../base/base.model';
 
-export interface ITransaction  extends IBaseModel
+export interface TransactionModel extends BaseModel
 {
     symbol: string,
     quantity: number,

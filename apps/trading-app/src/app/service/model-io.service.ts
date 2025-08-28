@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IBaseModel, ModelName } from '@trading-monorepo/core';
+import { BaseModel, ModelName } from '@trading-monorepo/core';
 import { Observable } from 'rxjs';
 
 /*
@@ -34,7 +34,7 @@ export class ModelIoService {
 */
   }
 
-  public query<T extends IBaseModel>(modelName: string, id: number, query: any): Observable<T> {
+  public query<T extends BaseModel>(modelName: string, id: number, query: any): Observable<T> {
 
 /*
     const subPath = this.modelIoConfigMap.get(modelName);

@@ -14,9 +14,9 @@
   <div class="instruments-grid" *ngFor="let transaction of researchResultObservable | async">
 
     <div class="instruments-grid-item">{{ transaction.symbol }}</div>
-    <div class="instruments-grid-item">{{ transaction.lastPrice }}</div>
-    <div class="instruments-grid-item">{{ transaction.bidPrice }}</div>
-    <div class="instruments-grid-item">{{ transaction.askPrice }}</div>
+    <div class="instruments-grid-item">{{ transaction.last }}</div>
+    <div class="instruments-grid-item">{{ transaction.bid }}</div>
+    <div class="instruments-grid-item">{{ transaction.ask }}</div>
     <div class="instruments-grid-item">{{ transaction.change }}</div>
     <div class="instruments-grid-item">{{ transaction.type }}</div>
   </div>

@@ -1,44 +1,37 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IBaseModel, ModelName, QueryOptions } from '@trading-monorepo/core';
+import { BaseModel, ModelName, QueryOptions } from '@trading-monorepo/core';
 import { Observable } from 'rxjs';
+import { RestService } from './rest.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ModelRestService {
-  constructor(protected readonly httpClient: HttpClient) {}
+export class ModelRestService extends RestService {
 
-  getAll<T extends IBaseModel>(modelName: ModelName, queryOptions?: QueryOptions): Observable<T[]> {
-    let modelPath = '';
-    switch (modelName) {
-      case 'AccountPerformance':
-        modelPath = 'account-performance';
-        break;
-      case 'Transaction':
-        modelPath = 'transaction';
-        break;
-      case 'Instrument':
-        modelPath = 'instrument';
-        break;
-      default:
-        throw new Error(`Cannot determine the model path for ${modelName}`);
-    }
-    return this.httpClient.get<T[]>(`/api/${modelPath}?queryOptions=${encodeURIComponent(JSON.stringify(queryOptions))}`);
+  constructor(httpClient: HttpClient) {
+    super(httpClient);
   }
 
-  get<T extends IBaseModel>(modelName: ModelName, id: number, queryOptions?: QueryOptions): Observable<T> {
+  getAll<T extends BaseModel>(modelName: ModelName, queryOptions?: QueryOptions): Observable<T[]> {
+
+    const modelPath = this.getModelPath(modelName);
+    return this.doGetAll<T>(`/api/${modelPath}?queryOptions=${queryOptions ? encodeURIComponent(JSON.stringify(queryOptions)) : ''}`);
+  }
+
+  get<T extends BaseModel>(modelName: ModelName, id: number, queryOptions?: QueryOptions): Observable<T> {
+
+    const modelPath = this.getModelPath(modelName);
+    return this.doGet<T>(`/api/${modelPath}${id ? '/' + id : ''}?queryOptions=${queryOptions ? encodeURIComponent(JSON.stringify(queryOptions)) : ''}`);
+  }
+
+  private getModelPath(modelName: ModelName): string {
     let modelPath = '';
     switch (modelName) {
-      case 'AccountPerformance':
-        modelPath = 'account-performance';
-        break;
-      case 'Instrument':
-        modelPath = 'instrument';
-        break;
       default:
-        throw new Error(`Cannot determine the model path for ${modelName}`);
+        modelPath = modelName.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
     }
-    return this.httpClient.get<T>(`/api/${modelPath}${id ? '/' + id : ''}?queryOptions=${encodeURIComponent(JSON.stringify(queryOptions))}`);
+    console.log(`model path: ${modelPath}`);
+    return modelPath;
   }
 }
