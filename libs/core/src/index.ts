@@ -13,3 +13,5 @@ export * from './lib/domain/research.result';
 export * from './lib/domain/instrument.model';
 export * from './lib/domain/position.request';
 export * from './lib/domain/position.result';
+export * from './lib/domain/price.model';
+export * from './lib/domain/order.request';

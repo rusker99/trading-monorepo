@@ -10,11 +10,11 @@ export class ModelDbService implements ModelService {
   @Inject(PrismaService)
   readonly prismaService!: PrismaService;
 
-  createOrUpdate<T extends BaseModel>(model: T, data: Partial<T>): Promise<T> {
+  createOrUpdate<T extends BaseModel>(model: T, data?: Partial<T>): Promise<T> {
 
     const table = this.prismaService.getPrismaTable(model.modelName);
 
-    return table.upsert({ where: { id: data.id }, create: data, update: data });
+    return table.upsert({ where: { id: model.id }, create: data || model, update: data || model});
   }
 
   delete<T extends BaseModel>(model: T, id: number): Promise<unknown> {

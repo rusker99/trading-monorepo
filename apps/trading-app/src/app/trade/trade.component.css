@@ -1,0 +1,35 @@
+
+.trade-form-grid
+{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) 2fr;
+  padding: 10px;
+}
+
+.trade-form-grid-item
+{
+  padding: 5px;
+  background-color: aquamarine;
+}
+
+.trade-form-grid-item-chart
+{
+  padding: 5px;
+  background-color: aqua;
+  grid-column-start: 1;
+  grid-column-end: 6;
+}
+
+.trade-form-grid-item-order-form
+{
+  padding: 5px;
+  background-color: green;
+  grid-column-start: 5;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.input-upper{
+  text-transform: uppercase;
+}

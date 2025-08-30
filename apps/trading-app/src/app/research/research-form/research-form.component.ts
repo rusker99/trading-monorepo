@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { ResearchFilterRequest } from '@trading-monorepo/core';
 
 @Component({
@@ -10,7 +9,6 @@ import { ResearchFilterRequest } from '@trading-monorepo/core';
 })
 export class ResearchFormComponent {
   formGroup: FormGroup;
-  subscriptions: Subscription[];
   @Output()
   searchTriggeredEventEmitter: EventEmitter<ResearchFilterRequest>;
   @Output()
@@ -18,7 +16,6 @@ export class ResearchFormComponent {
 
   constructor(protected formBuilder: FormBuilder)
   {
-    this.subscriptions = new Array<Subscription>();
     this.searchTriggeredEventEmitter = new EventEmitter<ResearchFilterRequest>();
     this.resetTriggeredEventEmitter = new EventEmitter<void>();
     this.formGroup = formBuilder.group({
@@ -45,5 +42,4 @@ export class ResearchFormComponent {
   {
     this.resetTriggeredEventEmitter.emit();
   }
-
 }
