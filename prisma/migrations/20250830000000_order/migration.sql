@@ -4,7 +4,7 @@ create table trading."Order"
   action         varchar(10)    not null,
   type           varchar(10)    not null,
   "limitPrice"   numeric(16, 4),
-  "filledPrice"  numeric(16, 4) not null,
+  "filledPrice"  numeric(16, 4),
   status         varchar(10)    not null,
   quantity       numeric(10, 5) not null,
   "orderDate"    timestamp      not null,

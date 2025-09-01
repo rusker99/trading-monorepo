@@ -31,7 +31,7 @@ export class ResearchFormComponent {
     const researchFilter = {
       losers: this.formGroup.get('losers').value,
       lowestPrice: this.formGroup.get('lowestPrice').value,
-      highestPrice: this.formGroup.get('highestPrice').value,
+      limitPrice: this.formGroup.get('highestPrice').value,
       type: this.formGroup.get('type').value,
     } as ResearchFilterRequest;
 

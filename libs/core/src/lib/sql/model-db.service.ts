@@ -17,6 +17,20 @@ export class ModelDbService implements ModelService {
     return table.upsert({ where: { id: model.id }, create: data || model, update: data || model});
   }
 
+  create<T extends BaseModel>(model: T): Promise<T> {
+
+    const table = this.prismaService.getPrismaTable(model.modelName);
+
+    return table.create({ data: { ...model, modelName: undefined } });
+  }
+
+  update<T extends BaseModel>(model: T): Promise<T> {
+
+    const table = this.prismaService.getPrismaTable(model.modelName);
+
+    return table.update({ where: { id: model.id }, data: { ...model, modelName: undefined }});
+  }
+
   delete<T extends BaseModel>(model: T, id: number): Promise<unknown> {
 
     const table = this.prismaService.getPrismaTable(model.modelName);

@@ -1,34 +1,34 @@
 <div>
-  <div class="trade-form-grid" [formGroup]="formGroup">
-    <div class="trade-form-grid-item">Symbol</div>
-    <div class="trade-form-grid-item">Description</div>
-    <div class="trade-form-grid-item">Change</div>
-    <div class="trade-form-grid-item">Bid/Ask</div>
+  <div class="trade-grid">
+    <div class="trade-grid-item">Symbol</div>
+    <div class="trade-grid-item">Description</div>
+    <div class="trade-grid-item">Change</div>
+    <div class="trade-grid-item">Bid/Ask</div>
 
-    <div class="trade-form-grid-item-order-form">
-      <trading-app-trade-order></trading-app-trade-order>
+    <div class="trade-grid-item-order-form">
+      <trading-app-trade-form [instrumentObservable]="instrumentObservable"></trading-app-trade-form>
     </div>
 
-    <div class="trade-form-grid-item">
+    <div class="trade-grid-item" [formGroup]="formGroup">
       <input
         class="input-upper"
         formControlName="symbol"
         #symbolControl
-        (keydown.enter)="fetchInstrument(symbolControl.value)"
+        (keydown.enter)="triggerGetInstrument(symbolControl.value)"
       >
     </div>
-    <div class="trade-form-grid-item">
+    <div class="trade-grid-item">
       {{ (instrumentObservable | async)?.description }}
     </div>
-    <div class="trade-form-grid-item">
+    <div class="trade-grid-item">
       {{ (instrumentObservable | async)?.priceChange }}
     </div>
-    <div class="trade-form-grid-item">
+    <div class="trade-grid-item">
       {{ (instrumentObservable | async)?.prices }}
     </div>
 
     <div *ngIf="instrumentObservable | async" echarts [options]="chartOptionObservable | async"
-         class="demo-chart trade-form-grid-item-chart">
+         class="demo-chart trade-grid-item-chart">
     </div>
   </div>
 </div>

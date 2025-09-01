@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { BaseModel, ModelName } from './base.model';
 import { BaseController } from './base.controller';
 import { ModelDbService } from '../sql/model-db.service';
@@ -27,5 +27,10 @@ export class DefaultController extends BaseController {
       modelName,
       queryOptions ? JSON.parse(queryOptions) : undefined
     );
+  }
+
+  @Post('/')
+  postModel(@Body() model: BaseModel) {
+    return model?.id ? this.modelService.update(model) : this.modelService.create(model);
   }
 }

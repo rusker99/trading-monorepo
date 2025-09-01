@@ -22,7 +22,6 @@ export class ResearchResultComponent implements OnInit {
     this.researchResultObservable = this.researchFilterObservable.pipe(
       distinctUntilChanged(),
       switchMap((researchFilter) =>
-
         !researchFilter
           ? of([])
           : this.httpClient

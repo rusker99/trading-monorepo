@@ -1,0 +1,25 @@
+.trade-form-grid
+{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+}
+
+.trade-form-grid-item
+{
+  padding: 5px;
+}
+
+.trade-form-grid-item-error
+{
+  padding: 5px;
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.trade-form-grid-item-buttons
+{
+  padding: 5px;
+  grid-column-start: 1;
+  grid-column-end: 4;
+}

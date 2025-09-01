@@ -25,8 +25,15 @@ export class ModelRestService extends RestService {
     return this.doGet<T>(`/api/${modelPath}${id ? '/' + id : ''}?queryOptions=${queryOptions ? encodeURIComponent(JSON.stringify(queryOptions)) : ''}`);
   }
 
+
+  post<T extends BaseModel>(model: Partial<T>, postOptions?: QueryOptions): Observable<T> {
+
+    const modelPath = this.getModelPath(model.modelName);
+    return this.doPost<T>(`/api/${modelPath}`, postOptions || model);
+  }
+
   private getModelPath(modelName: ModelName): string {
-    let modelPath = '';
+    let modelPath: string;
     switch (modelName) {
       default:
         modelPath = modelName.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();

@@ -51,7 +51,15 @@ export class TradeComponent implements OnInit {
           }
         }),
         filter((value) => !!value),
-        concatMap(this.getInstrument),
+        concatMap(symbol =>
+          this.restService.getAll<InstrumentModel>('Instrument', {
+            where: {
+              symbol: symbol,
+            },
+          }).pipe(
+            map(instruments => instruments?.length ? instruments.at(0) : null),
+          )
+        ),
         tap((instrument) => this.instrumentSubject.next(instrument)),
         filter((instrument) => !!instrument),
         concatMap(({ id }) =>
@@ -88,17 +96,7 @@ export class TradeComponent implements OnInit {
     this.chartOptionObservable.subscribe();
   }
 
-  getInstrument = (symbol: string): Observable<InstrumentModel> => {
-    return this.restService.getAll<InstrumentModel>('Instrument', {
-      where: {
-        symbol: symbol,
-      },
-    }).pipe(
-      map(instruments => instruments?.length ? instruments.at(0) : null),
-    );
-  };
-
-  fetchInstrument(symbol: string) {
+  triggerGetInstrument(symbol: string) {
 
     symbol = symbol.toUpperCase();
     this.formGroup.get('symbol').setValue(symbol);

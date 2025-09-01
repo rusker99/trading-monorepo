@@ -8,23 +8,23 @@ datasource db {
 }
 
 model AccountPerformance {
-  id                     Int      @id @default(autoincrement())
-  date DateTime @db.Date
-  amount                 Decimal  @db.Decimal(9, 2)
-  userId                 Int
-  user                   User     @relation(fields: [userId], references: [id])
+  id     Int      @id @default(autoincrement())
+  date   DateTime @db.Date
+  amount Decimal  @db.Decimal(9, 2)
+  userId Int
+  user   User     @relation(fields: [userId], references: [id])
 
   @@unique([date, userId], map: "accountperformance_uk")
 }
 
 model Instrument {
-  id          Int     @id(map: "instrument_pk") @default(autoincrement())
-  symbol      String  @unique(map: "instrument_uk") @db.VarChar(10)
-  type        String  @db.VarChar(10)
-  description String? @db.VarChar(100)
+  id           Int           @id(map: "instrument_pk") @default(autoincrement())
+  symbol       String        @unique(map: "instrument_uk") @db.VarChar(10)
+  type         String        @db.VarChar(10)
+  description  String?       @db.VarChar(100)
+  orders       Order[]
   prices       Price[]
-
-  Transaction Transaction[] @relation(map: "Transaction_Instrument_id_fkey")
+  transactions Transaction[]
 }
 
 model Price {
@@ -32,31 +32,45 @@ model Price {
   bid          Decimal    @db.Decimal(16, 4)
   last         Decimal    @db.Decimal(16, 4)
   ask          Decimal    @db.Decimal(16, 4)
-  change        Decimal @db.Decimal(10, 5)
-  date         DateTime?  @db.Date
+  date         DateTime   @db.Timestamp(6)
+  change       Decimal    @db.Decimal(10, 5)
   instrumentId Int
   instrument   Instrument @relation(fields: [instrumentId], references: [id], map: "Price_Instrument_id_fkey")
 }
 
 model Transaction {
-  id        Int      @id @default(autoincrement())
-  quantity  Decimal  @db.Decimal(10, 5)
-  price     Decimal  @db.Decimal(16, 4)
-  userId    Int
-  currency  String   @db.VarChar(3)
-  tradeDate DateTime @db.Date
-  type      String   @db.VarChar(3)
-  user      User     @relation(fields: [userId], references: [id], map: "Trading_userId_fkey")
+  id           Int        @id @default(autoincrement())
+  quantity     Decimal    @db.Decimal(10, 5)
+  price        Decimal    @db.Decimal(16, 4)
+  userId       Int
+  currency     String     @db.VarChar(3)
+  tradeDate    DateTime   @db.Timestamp(6)
+  type         String     @db.VarChar(3)
   instrumentId Int
+  user         User       @relation(fields: [userId], references: [id], map: "Trading_userId_fkey")
   instrument   Instrument @relation(fields: [instrumentId], references: [id], map: "Transaction_Instrument_id_fkey")
 }
 
 model User {
-  id                 Int                  @id @default(autoincrement())
-  userName           String               @unique(map: "user_uk") @db.VarChar(100)
-  firstName          String               @db.VarChar(50)
-  lastName           String               @db.VarChar(50)
-  email              String               @db.VarChar(100)
+  id                  Int                  @id @default(autoincrement())
+  userName            String               @unique(map: "user_uk") @db.VarChar(100)
+  firstName           String               @db.VarChar(50)
+  lastName            String               @db.VarChar(50)
+  email               String               @db.VarChar(100)
   accountPerformances AccountPerformance[]
   transactions        Transaction[]
+}
+
+model Order {
+  id           Int        @id @default(autoincrement())
+  action       String     @db.VarChar(10)
+  type         String     @db.VarChar(10)
+  limitPrice   Decimal?   @db.Decimal(16, 4)
+  filledPrice  Decimal?   @db.Decimal(16, 4)
+  status       String     @db.VarChar(10)
+  quantity     Decimal    @db.Decimal(10, 5)
+  orderDate    DateTime   @default(now()) @db.Timestamp(6)
+  filledDate   DateTime?  @db.Timestamp(6)
+  instrumentId Int
+  Instrument   Instrument @relation(fields: [instrumentId], references: [id], map: "Order_Instrument_id_fkey")
 }

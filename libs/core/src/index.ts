@@ -15,3 +15,4 @@ export * from './lib/domain/position.request';
 export * from './lib/domain/position.result';
 export * from './lib/domain/price.model';
 export * from './lib/domain/order.request';
+export * from './lib/domain/order.model';

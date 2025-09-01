@@ -1,0 +1,38 @@
+<div class="trade-form-grid" [formGroup]="formGroup">
+  <div *ngIf="submissionMessage" class="trade-form-grid-item-error">{{submissionMessage}}</div>
+  <div class="trade-form-grid-item">Action</div>
+  <div class="trade-form-grid-item">
+    <select formControlName="action">
+      <option ngValue="">Select value</option>
+      <option ngValue="BUY">BUY</option>
+      <option ngValue="SELL">SELL</option>
+    </select>
+  </div>
+  <div></div>
+
+  <div class="trade-form-grid-item">Quantity</div>
+  <div class="trade-form-grid-item">
+    <input formControlName="quantity">
+  </div>
+  <div></div>
+
+  <div class="trade-form-grid-item">Type</div>
+  <div class="trade-form-grid-item">
+    <select formControlName="type">
+      <option ngValue="">Select value</option>
+      <option ngValue="LIMIT">LIMIT</option>
+      <option ngValue="MARKET">MARKET</option>
+    </select>
+  </div>
+  <div></div>
+
+  <div class="trade-form-grid-item">Limit price</div>
+  <div class="trade-form-grid-item">
+    <input formControlName="limitPrice">
+  </div>
+  <div class="trade-form-grid-item-buttons">
+    <button type="button" [disabled]="(instrumentObservable | async) === null ||
+      (instrumentObservable | async) === undefined" (click)="submit()">Submit</button>&nbsp;
+    <button type="button" (click)="reset()">Reset</button>
+  </div>
+</div>

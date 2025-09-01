@@ -8,6 +8,7 @@
     "prisma:migrate:dev": "npx prisma migrate dev",
     "prisma:migrate:deploy": "npx prisma migrate deploy",
     "prisma:generate": "npx prisma generate",
+    "prisma:db:pull": "npx prisma db pull",
     "serve:dev": "concurrently --kill-others -p=\"{name}\" -n=\"trading-app,api\" -c=\"green,blue\" \"nx run trading-app:serve\" \"nx run api:serve\""
   },
   "private": true,

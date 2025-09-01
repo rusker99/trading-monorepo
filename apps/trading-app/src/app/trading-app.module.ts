@@ -21,7 +21,7 @@ import { ResearchFormComponent } from './research/research-form/research-form.co
 import { ResearchResultComponent } from './research/research-result/research-result.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PositionsComponent } from './portfolio/positions/positions.component';
-import { TradeOrderComponent } from './trade/trade-order/trade-order.component';
+import { TradeFormComponent } from './trade/trade-form/trade-form.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,7 @@ import { TradeOrderComponent } from './trade/trade-order/trade-order.component';
     ResearchFormComponent,
     ResearchResultComponent,
     PositionsComponent,
-    TradeOrderComponent,
+    TradeFormComponent,
   ],
   imports: [
     BrowserModule,
