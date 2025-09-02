@@ -2,9 +2,9 @@ import { Inject, Injectable } from '@nestjs/common';
 import {
   PositionRequest,
   PositionResult,
-  PrismaService
 } from '@trading-monorepo/core';
 import { Prisma } from '@prisma/client';
+import { PrismaService } from '../sql/prisma.service';
 
 @Injectable()
 export class PositionService {

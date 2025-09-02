@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BaseModel, ModelName, QueryOptions } from '@trading-monorepo/core';
+import { BaseModel, ModelName, PrismaOptions } from '@trading-monorepo/core';
 import { Observable } from 'rxjs';
 import { RestService } from './rest.service';
 
@@ -13,23 +13,23 @@ export class ModelRestService extends RestService {
     super(httpClient);
   }
 
-  getAll<T extends BaseModel>(modelName: ModelName, queryOptions?: QueryOptions): Observable<T[]> {
+  getAll<T extends BaseModel>(modelName: ModelName, prismaOptions?: PrismaOptions): Observable<T[]> {
 
     const modelPath = this.getModelPath(modelName);
-    return this.doGetAll<T>(`/api/${modelPath}?queryOptions=${queryOptions ? encodeURIComponent(JSON.stringify(queryOptions)) : ''}`);
+    return this.doGetAll<T>(`/api/${modelPath}?prismaOptions=${prismaOptions ? encodeURIComponent(JSON.stringify(prismaOptions)) : ''}`);
   }
 
-  get<T extends BaseModel>(modelName: ModelName, id: number, queryOptions?: QueryOptions): Observable<T> {
+  get<T extends BaseModel>(modelName: ModelName, id: number, prismaOptions?: PrismaOptions): Observable<T> {
 
     const modelPath = this.getModelPath(modelName);
-    return this.doGet<T>(`/api/${modelPath}${id ? '/' + id : ''}?queryOptions=${queryOptions ? encodeURIComponent(JSON.stringify(queryOptions)) : ''}`);
+    return this.doGet<T>(`/api/${modelPath}${id ? '/' + id : ''}?prismaOptions=${prismaOptions ? encodeURIComponent(JSON.stringify(prismaOptions)) : ''}`);
   }
 
 
-  post<T extends BaseModel>(model: Partial<T>, postOptions?: QueryOptions): Observable<T> {
+  post<T extends BaseModel>(model: Partial<T>, prismaOptions?: PrismaOptions): Observable<T> {
 
     const modelPath = this.getModelPath(model.modelName);
-    return this.doPost<T>(`/api/${modelPath}`, postOptions || model);
+    return this.doPost<T>(`/api/${modelPath}`, prismaOptions || model);
   }
 
   private getModelPath(modelName: ModelName): string {

@@ -6,9 +6,9 @@ export class PositionController {
   constructor(private readonly positionService: PositionService) {}
 
   @Get('/')
-  getAll(@Query('queryOptions') queryOptions?: string) {
+  getAll(@Query('prismaOptions') prismaOptions?: string) {
     return this.positionService.findMany(
-      queryOptions ? JSON.parse(queryOptions) : undefined
+      prismaOptions ? JSON.parse(prismaOptions) : undefined
     );
   }
 }

@@ -1,4 +1,4 @@
-import { BaseModel } from '../base/base.model';
+import { BaseModel } from './base.model';
 import { PriceModel } from './price.model';
 
 export interface InstrumentModel extends BaseModel

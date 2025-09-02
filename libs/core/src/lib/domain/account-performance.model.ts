@@ -1,5 +1,5 @@
 
-import { BaseModel } from '../base/base.model';
+import { BaseModel } from './base.model';
 
 
 export interface AccountPerformanceModel extends BaseModel

@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import { BaseModel, ModelName } from './base.model';
 import { BaseController } from './base.controller';
 import { ModelDbService } from '../sql/model-db.service';
+import { BaseModel, ModelName } from '@trading-monorepo/core';
 
 @Controller(':modelName')
 export class DefaultController extends BaseController {
@@ -13,19 +13,19 @@ export class DefaultController extends BaseController {
   getOne(
     @Param('modelName') modelName: ModelName,
     @Param('id') id: number,
-    @Query('queryOptions') queryOptions: string
+    @Query('prismaOptions') prismaOptions: string
   ): Promise<BaseModel> {
-    return this.getOneModel(modelName, id, JSON.parse(queryOptions));
+    return this.getOneModel(modelName, id, JSON.parse(prismaOptions));
   }
 
   @Get('/')
   getAll(
     @Param('modelName') modelName: ModelName,
-    @Query('queryOptions') queryOptions: string
+    @Query('prismaOptions') prismaOptions: string
   ) {
     return this.modelService.findMany(
       modelName,
-      queryOptions ? JSON.parse(queryOptions) : undefined
+      prismaOptions ? JSON.parse(prismaOptions) : undefined
     );
   }
 

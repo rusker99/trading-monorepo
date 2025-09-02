@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import {
-  PrismaService,
   ResearchFilterRequest,
   ResearchResult,
 } from '@trading-monorepo/core';
 import { Prisma } from '@prisma/client';
+import { PrismaService } from '../sql/prisma.service';
 
 @Injectable()
 export class ResearchService {

@@ -1,8 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import { BaseModel } from '../base/base.model';
-import { ModelService, QueryOptions } from '../base/model.service';
-
+import { ModelService } from '../service/model.service';
+import { BaseModel, PrismaOptions } from '@trading-monorepo/core';
 
 @Injectable()
 export class ModelDbService implements ModelService {
@@ -38,7 +37,7 @@ export class ModelDbService implements ModelService {
     return table.delete(id);
   }
 
-  find<T extends BaseModel>(model: T, queryOptions?: QueryOptions): Promise<T> {
+  find<T extends BaseModel>(model: T, prismaOptions?: PrismaOptions): Promise<T> {
 
     const table = this.prismaService.getPrismaTable(model.modelName);
     const payload = {
@@ -46,14 +45,14 @@ export class ModelDbService implements ModelService {
     };
 
     return table.findUnique(
-      { ...payload, ...queryOptions });
+      { ...payload, ...prismaOptions });
   }
 
-  findMany<T extends BaseModel>(modelName: T['modelName'], queryOptions?: QueryOptions): Promise<T[]> {
+  findMany<T extends BaseModel>(modelName: T['modelName'], prismaOptions?: PrismaOptions): Promise<T[]> {
 
     const table = this.prismaService.getPrismaTable(modelName);
 
     return table.findMany(
-      queryOptions || undefined);
+      prismaOptions || undefined);
   }
 }

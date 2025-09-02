@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { AccountPerformanceModel, ModelService, ModelDbService } from '@trading-monorepo/core';
+import { ModelDbService } from '../sql/model-db.service';
+import { ModelService } from '../service/model.service';
+import { AccountPerformanceModel } from '@trading-monorepo/core';
 
 @Injectable()
 export class AccountPerformanceService extends ModelDbService implements ModelService

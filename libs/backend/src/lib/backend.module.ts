@@ -1,18 +1,17 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
+import { AppController } from './controller/app.controller';
 import { AccountPerformanceService } from './account-performance/account-performance.service';
 import { AccountPerformanceController } from './account-performance/account-performance.controller';
-import {
-  DefaultController,
-  ModelDbService,
-  PrismaService,
-} from '@trading-monorepo/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ResearchController } from './research/research.controller';
 import { ResearchService } from './research/research.service';
 import { PositionController } from './position/position.controller';
 import { PositionService } from './position/position.service';
+import { DefaultController } from './controller/default.controller';
+import { PrismaService } from './sql/prisma.service';
+import { ModelDbService } from './sql/model-db.service';
+import { SocketService } from './service/socket.service';
 
 @Module({
   imports: [
@@ -35,6 +34,7 @@ import { PositionService } from './position/position.service';
     PrismaService,
     ModelDbService,
     PositionService,
+    SocketService,
   ],
 })
 export class BackendModule {}

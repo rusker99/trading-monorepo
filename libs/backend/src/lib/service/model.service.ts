@@ -1,16 +1,10 @@
-import { BaseModel } from './base.model';
+import { BaseModel, PrismaOptions } from '@trading-monorepo/core';
 
-export interface QueryOptions {
-  select?: any,
-  include?: any,
-  where?: any,
-  orderBy?: any,
-}
 export interface ModelService
 {
   // modelName: ModelName;
-  find<T extends BaseModel>(model: T, queryOptions?: QueryOptions): Promise<T>,
-  findMany<T extends BaseModel>(modelName: T['modelName'], queryOptions?: QueryOptions): Promise<T[]>,
+  find<T extends BaseModel>(model: T, prismaOptions?: PrismaOptions): Promise<T>,
+  findMany<T extends BaseModel>(modelName: T['modelName'], prismaOptions?: PrismaOptions): Promise<T[]>,
   // createOrUpdate<T extends BaseModel>(model: T, data?: Partial<T>): Promise<T>;
   create<T extends BaseModel>(model: T): Promise<T>;
   update<T extends BaseModel>(model: T): Promise<T>;

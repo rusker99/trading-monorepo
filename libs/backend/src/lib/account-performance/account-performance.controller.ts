@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { AccountPerformanceService } from './account-performance.service';
-import { BaseController } from '@trading-monorepo/core';
+import { BaseController } from '../controller/base.controller';
 
 
 @Controller('account-performance')

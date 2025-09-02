@@ -1,11 +1,6 @@
 export * from './lib/core.module';
 export * from './lib/domain/account-performance.model';
-export * from './lib/base/base.model';
-export * from './lib/sql/model-db.service';
-export * from './lib/base/model.service';
-export * from './lib/base/base.controller';
-export * from './lib/sql/prisma.service';
-export * from './lib/base/default.controller';
+export * from './lib/domain/base.model';
 export * from './lib/domain/transaction.model';
 export * from './lib/domain/transaction.result';
 export * from './lib/domain/research-filter.request';
@@ -16,3 +11,4 @@ export * from './lib/domain/position.result';
 export * from './lib/domain/price.model';
 export * from './lib/domain/order.request';
 export * from './lib/domain/order.model';
+export * from './lib/prisma/prisma.options';

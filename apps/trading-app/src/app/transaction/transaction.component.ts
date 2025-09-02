@@ -14,7 +14,7 @@ export class TransactionComponent implements OnInit {
   constructor(private restService: RestService) {}
   ngOnInit(): void {
     this.restService
-      .doGetAll<TransactionResult>(`/api/transaction?queryOptions=${encodeURIComponent(
+      .doGetAll<TransactionResult>(`/api/transaction?prismaOptions=${encodeURIComponent(
         JSON.stringify({include: {instrument: {select: {symbol: true}}}}))}`)
       .subscribe(
         (transactions: TransactionResult[]) =>
